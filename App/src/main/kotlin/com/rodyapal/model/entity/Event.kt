@@ -1,5 +1,6 @@
 package com.rodyapal.model.entity
 
+import kotlinx.serialization.Serializable
 import org.ktorm.entity.Entity
 import org.ktorm.schema.Table
 import org.ktorm.schema.int
@@ -20,4 +21,25 @@ interface Event : Entity<Event> {
 	var barber: Barber
 	var client: Client
 	var visitDateTime: Timestamp
+}
+
+@Serializable
+class EventDto(
+	val id: Int,
+	val service: ServiceDto,
+	val barber: BarberDto,
+	val client: ClientDto,
+	val visitDateTime: Long
+) {
+	companion object {
+		fun from(event: Event): EventDto {
+			return EventDto(
+				id = event.id,
+				service = ServiceDto.from(event.service),
+				barber = BarberDto.from(event.barber),
+				client = ClientDto.from(event.client),
+				visitDateTime = event.visitDateTime.time
+			)
+		}
+	}
 }

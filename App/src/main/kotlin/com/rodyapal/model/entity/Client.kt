@@ -1,5 +1,6 @@
 package com.rodyapal.model.entity
 
+import kotlinx.serialization.Serializable
 import org.ktorm.entity.Entity
 import org.ktorm.schema.Table
 import org.ktorm.schema.int
@@ -19,4 +20,25 @@ interface Client : Entity<Client> {
 	var email: String
 	var password: String
 	var phoneNumber: String
+}
+
+@Serializable
+class ClientDto(
+	val id: Int,
+	val name: String,
+	val email: String,
+	val password: String,
+	val phoneNumber: String
+) {
+	companion object {
+		fun from(client: Client): ClientDto {
+			return ClientDto(
+				id = client.id,
+				name = client.name,
+				email = client.email,
+				password = client.password,
+				phoneNumber = client.phoneNumber
+			)
+		}
+	}
 }
