@@ -11,4 +11,6 @@ object Config {
 
 	const val API_VERSION = "v1"
 	const val API_PATH_SERVICES = "/api/$API_VERSION/services"
+	const val API_PATH_EVENTS = "/api/$API_VERSION/events"
+	const val API_PATH_BARBERS = "/api/$API_VERSION/barbers"
 }

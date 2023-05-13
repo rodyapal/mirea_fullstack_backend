@@ -1,6 +1,7 @@
 package com.rodyapal.di
 
 import com.rodyapal.config.Config
+import com.rodyapal.model.EventService
 import com.rodyapal.model.dao.BarberDao
 import com.rodyapal.model.dao.ClientDao
 import com.rodyapal.model.dao.EventDao
@@ -27,5 +28,13 @@ val databaseModule = module {
 	}
 	single {
 		ServiceDao(database = get())
+	}
+	single {
+		EventService(
+			eventDao = get(),
+			barberDao = get(),
+			clientDao = get(),
+			serviceDao = get()
+		)
 	}
 }
