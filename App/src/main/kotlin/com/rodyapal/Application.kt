@@ -13,7 +13,7 @@ fun main() {
 
 fun Application.module() {
 	configureSecurity()
-	configureHTTP()
+//	configureHTTP()
 	configureMonitoring()
 	configureSerialization()
 
