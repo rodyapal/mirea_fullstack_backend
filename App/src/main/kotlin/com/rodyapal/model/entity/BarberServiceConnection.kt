@@ -1,6 +1,5 @@
 package com.rodyapal.model.entity
 
-import com.rodyapal.barbershop.model.table.Services
 import org.ktorm.entity.Entity
 import org.ktorm.schema.Table
 import org.ktorm.schema.int
