@@ -9,7 +9,7 @@ import org.koin.dsl.module
 import org.ktorm.database.Database
 
 val databaseModule = module {
-	single { Database.connect(
+	single<Database> { Database.connect(
 		url = Config.DATABASE_URL,
 		driver = Config.DATABASE_DRIVER,
 		user = Config.DATABASE_USER_NAME,
@@ -17,15 +17,15 @@ val databaseModule = module {
 	) }
 
 	single {
-		params -> BarberDao(database = params.get())
+		BarberDao(database = get())
 	}
 	single {
-		params -> ClientDao(database = params.get())
+		ClientDao(database = get())
 	}
 	single {
-		params -> EventDao(database = params.get())
+		EventDao(database = get())
 	}
 	single {
-		params -> ServiceDao(database = params.get())
+		ServiceDao(database = get())
 	}
 }

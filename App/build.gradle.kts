@@ -39,6 +39,7 @@ dependencies {
 	// Ktorm
 	implementation("org.ktorm:ktorm-core:$ktorm_version")
 	implementation("org.ktorm:ktorm-support-postgresql:$ktorm_version")
+	implementation("org.postgresql:postgresql:42.2.27")
 
 	// Koin-ktor
 	implementation("io.insert-koin:koin-ktor:$koin_version")

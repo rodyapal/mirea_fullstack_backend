@@ -12,10 +12,11 @@ fun main() {
 }
 
 fun Application.module() {
-	configureSecurity()
+//	configureSecurity()
 //	configureHTTP()
 	configureMonitoring()
 	configureSerialization()
+	configureRouting()
 
 	install(Koin) {
 		modules(databaseModule)
