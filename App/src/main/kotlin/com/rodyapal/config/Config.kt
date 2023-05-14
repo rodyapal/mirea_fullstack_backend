@@ -40,5 +40,5 @@ private object RailwayDatabase {
 	const val DATABASE_PORT = "6355"
 	const val DATABASE_HOST = "containers-us-west-155.railway.app"
 	const val DATABASE_DRIVER = "org.postgresql.Driver"
-	const val DATABASE_URL = "postgresql://postgres:dPVnylIcnGd8EzMVS1k9@containers-us-west-155.railway.app:6355/railway"
+	const val DATABASE_URL = "jdbc:postgresql://$DATABASE_USER_NAME:$DATABASE_PASSWORD@$DATABASE_HOST:$DATABASE_PORT/$DATABASE_NAME"
 }
