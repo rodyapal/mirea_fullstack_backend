@@ -14,10 +14,10 @@ services:
             - database:/var/lib/postgresql/data
         ports:
             - '5432:5432'
-        # webapp:
-        #     build: App/.
-        #     ports:
-        #         - '8080:8080'
-        #     container_name: mirea_backend_course_work_app
+    webapp:
+      build: App/.
+      ports:
+        - '8080:8080'
+      container_name: mirea_backend_course_work_app
 volumes:
     database:
