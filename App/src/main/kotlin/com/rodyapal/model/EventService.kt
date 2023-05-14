@@ -5,6 +5,7 @@ import com.rodyapal.model.dao.ClientDao
 import com.rodyapal.model.dao.EventDao
 import com.rodyapal.model.dao.ServiceDao
 import com.rodyapal.model.entity.Event
+import kotlinx.serialization.Serializable
 import org.ktorm.dsl.eq
 import java.sql.Timestamp
 
@@ -17,11 +18,12 @@ class EventService(
 	fun getEventsByUserId(userId: Int) = eventDao.allMatched { it.idClient eq userId }
 
 	fun registerEvent(
-		data: EventDataHolder
+		data: EventDataHolder,
+		idClient: Int
 	): Boolean {
 		val storedService = serviceDao.findOne { it.id eq data.idService }
 		val storedBarber = barberDao.findOne { it.id eq data.idBarber }
-		val storedClient = clientDao.findOne { it.id eq data.idClient }
+		val storedClient = clientDao.findOne { it.id eq idClient }
 
 		if (storedService == null || storedBarber == null || storedClient == null) return false
 
@@ -35,8 +37,8 @@ class EventService(
 		return true
 	}
 
+	@Serializable
 	data class EventDataHolder(
-		val idClient: Int,
 		val idBarber: Int,
 		val idService: Int,
 		val dateTime: Long

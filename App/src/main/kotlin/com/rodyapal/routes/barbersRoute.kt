@@ -13,6 +13,7 @@ fun Route.barbersApi() {
 	val barberDao by inject<BarberDao>()
 	route(Config.API_PATH_BARBERS) {
 		get {
+			call.response.header("Access-Control-Allow-Origin", "*")
 			call.respond(
 				message = barberDao.findAll().map { BarberDto.from(it) },
 				status = HttpStatusCode.OK

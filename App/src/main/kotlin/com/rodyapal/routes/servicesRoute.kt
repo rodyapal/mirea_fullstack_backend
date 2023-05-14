@@ -13,6 +13,7 @@ fun Route.servicesApi() {
 	val serviceDao by inject<ServiceDao>()
 	route(Config.API_PATH_SERVICES) {
 		get {
+			call.response.header("Access-Control-Allow-Origin", "*")
 			call.respond(
 				message = serviceDao.findAll().map { ServiceDto.from(it) },
 				status = HttpStatusCode.OK

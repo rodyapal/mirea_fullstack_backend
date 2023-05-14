@@ -1,10 +1,10 @@
 package com.rodyapal
 
 import com.rodyapal.di.databaseModule
+import com.rodyapal.plugins.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
-import com.rodyapal.plugins.*
 import org.koin.ktor.plugin.Koin
 
 fun main() {
@@ -12,8 +12,8 @@ fun main() {
 }
 
 fun Application.module() {
-//	configureSecurity()
-//	configureHTTP()
+	configureSecurity()
+	configureSessions()
 	configureMonitoring()
 	configureSerialization()
 	configureRouting()

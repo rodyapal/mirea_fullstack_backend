@@ -13,4 +13,10 @@ object Config {
 	const val API_PATH_SERVICES = "/api/$API_VERSION/services"
 	const val API_PATH_EVENTS = "/api/$API_VERSION/events"
 	const val API_PATH_BARBERS = "/api/$API_VERSION/barbers"
+	const val API_PATH_CLIENTS = "/api/$API_VERSION/clients"
+
+	const val AUTH_SESSION_NAME = "auth-session"
+	const val AUTH_TYPE_SESSION = "auth-type-session"
+	const val AUTH_TYPE_FORM = "auth-type-form"
+	const val AUTH_PATH = "auth/login"
 }
