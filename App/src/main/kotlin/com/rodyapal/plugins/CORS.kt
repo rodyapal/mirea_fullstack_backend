@@ -8,5 +8,11 @@ fun Application.configureCORS() {
 	install(CORS) {
 		anyHost()
 		allowHeader(HttpHeaders.ContentType)
+		allowSameOrigin = true
+		allowCredentials = true
+		allowNonSimpleContentTypes = true
+		allowMethod(HttpMethod.Post)
+		allowMethod(HttpMethod.Get)
+		allowHeader(HttpHeaders.AccessControlAllowOrigin)
 	}
 }
