@@ -24,7 +24,7 @@ interface Event : Entity<Event> {
 }
 
 @Serializable
-class EventDto(
+data class EventDto(
 	val id: Int,
 	val service: ServiceDto,
 	val barber: BarberDto,

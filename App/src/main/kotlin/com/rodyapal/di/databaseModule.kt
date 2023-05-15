@@ -1,11 +1,13 @@
 package com.rodyapal.di
 
 import com.rodyapal.config.Config
-import com.rodyapal.model.EventService
+import com.rodyapal.model.repository.EventRepository
 import com.rodyapal.model.dao.BarberDao
 import com.rodyapal.model.dao.ClientDao
 import com.rodyapal.model.dao.EventDao
-import com.rodyapal.model.dao.ServiceDao
+import com.rodyapal.model.repository.BarberRepository
+import com.rodyapal.model.repository.ServiceRepository
+import com.rodyapal.model.repository.ClientRepository
 import org.koin.dsl.module
 import org.ktorm.database.Database
 
@@ -27,14 +29,29 @@ val databaseModule = module {
 		EventDao(database = get())
 	}
 	single {
-		ServiceDao(database = get())
+		com.rodyapal.model.dao.ServiceDao(database = get())
 	}
 	single {
-		EventService(
+		EventRepository(
 			eventDao = get(),
 			barberDao = get(),
 			clientDao = get(),
 			serviceDao = get()
+		)
+	}
+	single {
+		ClientRepository(
+			clientDao = get()
+		)
+	}
+	single {
+		ServiceRepository(
+			serviceDao = get()
+		)
+	}
+	single {
+		BarberRepository(
+			barberDao = get()
 		)
 	}
 }

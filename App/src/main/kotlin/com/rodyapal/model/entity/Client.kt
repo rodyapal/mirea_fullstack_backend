@@ -23,7 +23,7 @@ interface Client : Entity<Client> {
 }
 
 @Serializable
-class ClientDto(
+data class ClientDto(
 	val id: Int,
 	val name: String,
 	val email: String,

@@ -17,7 +17,7 @@ interface Barber : Entity<Barber> {
 }
 
 @Serializable
-class BarberDto(
+data class BarberDto(
 	val id: Int,
 	val name: String
 ) {

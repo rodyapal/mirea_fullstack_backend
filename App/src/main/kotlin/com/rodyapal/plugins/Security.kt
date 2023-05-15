@@ -2,6 +2,7 @@ package com.rodyapal.plugins
 
 import com.rodyapal.config.Config
 import com.rodyapal.model.dao.ClientDao
+import com.rodyapal.model.repository.ClientRepository
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
@@ -13,11 +14,11 @@ import org.ktorm.dsl.eq
 
 fun Application.configureSecurity() {
 
-	val clientDao by inject<ClientDao>()
+	val clientRepository by inject<ClientRepository>()
 	authentication {
 		session<UserSession>(Config.AUTH_TYPE_SESSION) {
 			validate { session ->
-				if (clientDao.anyMatch { session.id eq it.id }) {
+				if (clientRepository.validateSession(session.id)) {
 					session
 				} else null
 			}
@@ -26,7 +27,7 @@ fun Application.configureSecurity() {
 			userParamName = "username"
 			passwordParamName = "password"
 			validate { credentials ->
-				if (clientDao.validate(credentials.name, credentials.password)) {
+				if (clientRepository.validate(credentials.name, credentials.password)) {
 					UserIdPrincipal(credentials.name)
 				} else {
 					null
@@ -43,7 +44,7 @@ fun Application.configureSecurity() {
 				val principal = call.principal<UserIdPrincipal>()!!
 				call.sessions.set(UserSession(
 					name = principal.name,
-					id = clientDao.findOne { it.name eq principal.name }!!.id
+					id = clientRepository.getIdForName(principal.name)
 				))
 				call.respond(HttpStatusCode.OK, "OK")
 				println("LOOK HERE: ${call.sessions}")

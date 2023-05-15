@@ -9,11 +9,11 @@ import io.ktor.server.netty.*
 import org.koin.ktor.plugin.Koin
 
 fun main(args: Array<String>) {
-	if (args.any { it.contains("railway") }) Config.useRailway = true
-	embeddedServer(Netty, port = 8080, host = "0.0.0.0", module = Application::module).start(wait = true)
+	embeddedServer(Netty, port = Config.SERVER_PORT, host = Config.SERVER_HOST, module = Application::module).start(wait = true)
 }
 
 fun Application.module() {
+	configureCORS()
 	configureSecurity()
 	configureSessions()
 	configureMonitoring()

@@ -1,7 +1,7 @@
 package com.rodyapal.routes
 
 import com.rodyapal.config.Config
-import com.rodyapal.model.EventService
+import com.rodyapal.model.repository.EventRepository
 import com.rodyapal.plugins.UserSession
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -14,22 +14,34 @@ import kotlinx.serialization.json.Json
 import org.koin.ktor.ext.inject
 
 fun Route.eventsApi() {
-	val eventService by inject<EventService>()
+	val eventRepository by inject<EventRepository>()
 	authenticate(Config.AUTH_TYPE_SESSION) {
 		route(Config.API_PATH_EVENTS) {
 			post {
 				println("LOOK HERE: ${call.sessions}")
 				call.principal<UserSession>()?.let {
 					val eventData = call.receive<String>().let { data ->
-						Json.decodeFromString(deserializer = EventService.EventDataHolder.serializer(), data)
+						Json.decodeFromString(deserializer = EventRepository.EventDataHolder.serializer(), data)
 					}
-					eventService.registerEvent(eventData, it.id)
+					eventRepository.registerEvent(eventData, it.id)
 					call.respondText(
 						text = "Event registered",
 						status = HttpStatusCode.Created
 					)
 				} ?: call.respondText(
 					text = "Event registration failed: user not found",
+					status = HttpStatusCode.BadRequest
+				)
+			}
+			get {
+				call.principal<UserSession>()?.let {
+					val data = eventRepository.getEventsByUserId(it.id)
+					call.respond(
+						message = data,
+						status = HttpStatusCode.OK
+					)
+				} ?: call.respondText(
+					text = "Request failed: user not found",
 					status = HttpStatusCode.BadRequest
 				)
 			}

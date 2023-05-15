@@ -1,21 +1,22 @@
-package com.rodyapal.model
+package com.rodyapal.model.repository
 
 import com.rodyapal.model.dao.BarberDao
 import com.rodyapal.model.dao.ClientDao
 import com.rodyapal.model.dao.EventDao
 import com.rodyapal.model.dao.ServiceDao
 import com.rodyapal.model.entity.Event
+import com.rodyapal.model.entity.EventDto
 import kotlinx.serialization.Serializable
 import org.ktorm.dsl.eq
 import java.sql.Timestamp
 
-class EventService(
+class EventRepository(
 	private val eventDao: EventDao,
 	private val serviceDao: ServiceDao,
 	private val barberDao: BarberDao,
 	private val clientDao: ClientDao
 ) {
-	fun getEventsByUserId(userId: Int) = eventDao.allMatched { it.idClient eq userId }
+	fun getEventsByUserId(userId: Int) = eventDao.findAll().filter { it.id == userId }.map { EventDto.from(it) }
 
 	fun registerEvent(
 		data: EventDataHolder,
